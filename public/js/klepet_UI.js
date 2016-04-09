@@ -1,11 +1,13 @@
 function divElementEnostavniTekst(sporocilo) {
   var jeSmesko = sporocilo.indexOf('http://sandbox.lavbic.net/teaching/OIS/gradivo/') > -1;
-  var reg = /http?:\/\/.*\.(?:png|jpg|gif)/g;
+  var reg = /https?:\/\/[^ ]*\.(?:gif|png|jpg|jpeg)/;
   var jeSlika = sporocilo.match(reg);
   //console.log(jeSlika);
   if (jeSmesko || jeSlika) {
     if (jeSmesko) {
+      
       sporocilo = sporocilo.replace(/\</g, '&lt;').replace(/\>/g, '&gt;').replace('&lt;img', '<img').replace('/&gt;', '/>'); 
+      console.log(sporocilo);
     } else if (jeSlika) {
       sporocilo = sporocilo.replace(/\</g, '&lt;').replace(/\>/g, '&gt;').replace('&lt;img', '<br><img').replace('/&gt;', '/>');
     }
@@ -126,14 +128,16 @@ $(document).ready(function() {
 });
 
 function dodajSmeske(vhodnoBesedilo) {
-  var reg = /http?:\/\/.*\.(?:png|jpg|gif)/g;
+  var reg = /https?:\/\/[^ ]*\.(?:gif|png|jpg|jpeg)/;
   var jeSlika = vhodnoBesedilo.match(reg);
+  console.log(vhodnoBesedilo.match(reg));
+  console.log(jeSlika);
   if (jeSlika) {
-    //console.log(jeSlika);
+    console.log(jeSlika);
     var zasebno = vhodnoBesedilo.indexOf('/zasebno') > -1;
     if (zasebno) {
       var konec = vhodnoBesedilo.length - 2;
-      var novo = vhodnoBesedilo.substring(0, konec);
+      var novo = vhodnoBesedilo.substring(0, konec + 1);
       novo += "<img src='" + jeSlika + "' style='width: 200px; margin-left: 20px' />";
       novo += '"';
       vhodnoBesedilo = novo;
