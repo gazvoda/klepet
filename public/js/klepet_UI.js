@@ -1,7 +1,11 @@
 function divElementEnostavniTekst(sporocilo) {
   var jeSmesko = sporocilo.indexOf('http://sandbox.lavbic.net/teaching/OIS/gradivo/') > -1;
-  if (jeSmesko) {
-    sporocilo = sporocilo.replace(/\</g, '&lt;').replace(/\>/g, '&gt;').replace('&lt;img', '<img').replace('png\' /&gt;', 'png\' />');
+  var regVideo = /^(?:https?:\/\/)?(?:www\.)?(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))((\w|-){11})(?:\S+)?$/;
+  var jeVideo = sporocilo.indexOf("https://www.youtube.com/watch?v=") > -1;
+  if (jeSmesko || jeVideo) {
+    //&gt;&lt;/iframe&gt
+    sporocilo = sporocilo.replace(/\</g, '&lt;').replace(/\>/g, '&gt;').replace('&lt;img', '<img').replace('png\' /&gt;', 'png\' />').replace('&lt;iframe', '<br><iframe').replace('allowfullscreen;&gt', 'allowfullscreen>').replace('&gt;&lt;/iframe&gt', '</iframe>');
+    console.log(sporocilo);
     return $('<div style="font-weight: bold"></div>').html(sporocilo);
   } else {
     return $('<div style="font-weight: bold;"></div>').text(sporocilo);
@@ -15,6 +19,7 @@ function divElementHtmlTekst(sporocilo) {
 function procesirajVnosUporabnika(klepetApp, socket) {
   var sporocilo = $('#poslji-sporocilo').val();
   sporocilo = dodajSmeske(sporocilo);
+  sporocilo = dodajVideo(sporocilo);
   var sistemskoSporocilo;
 
   if (sporocilo.charAt(0) == '/') {
@@ -128,6 +133,17 @@ function dodajSmeske(vhodnoBesedilo) {
     vhodnoBesedilo = vhodnoBesedilo.replace(smesko,
       "<img src='http://sandbox.lavbic.net/teaching/OIS/gradivo/" +
       preslikovalnaTabela[smesko] + "' />");
+  }
+  return vhodnoBesedilo;
+}
+
+function dodajVideo(vhodnoBesedilo) {
+  var video = vhodnoBesedilo.indexOf()
+  var regVideo = /^(?:https?:\/\/)?(?:www\.)?(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))((\w|-){11})(?:\S+)?$/;
+  var jeVideo = vhodnoBesedilo.match(regVideo);
+  if (jeVideo) {
+    console.log(jeVideo);
+    vhodnoBesedilo += "<iframe src='https://www.youtube.com/embed/" + jeVideo[1] + "' style:'width: 200px; height: 150px; margin-left: 20px;' allowfullscreen></iframe>";
   }
   return vhodnoBesedilo;
 }
