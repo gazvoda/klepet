@@ -138,11 +138,14 @@ function dodajSmeske(vhodnoBesedilo) {
 }
 
 function dodajVideo(vhodnoBesedilo) {
-  var video = vhodnoBesedilo.indexOf()
+  //var video = vhodnoBesedilo.indexOf("https://www.youtube.com/watch?v=") > -1;
+  //console.log(video);
   var regVideo = /^(?:https?:\/\/)?(?:www\.)?(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))((\w|-){11})(?:\S+)?$/;
   var jeVideo = vhodnoBesedilo.match(regVideo);
+  console.log(vhodnoBesedilo);
+  console.log(jeVideo);
   if (jeVideo) {
-    console.log(jeVideo);
+    //console.log(jeVideo);
     vhodnoBesedilo += "<iframe src='https://www.youtube.com/embed/" + jeVideo[1] + "' style:'width: 200px; height: 150px; margin-left: 20px;' allowfullscreen></iframe>";
   }
   return vhodnoBesedilo;
