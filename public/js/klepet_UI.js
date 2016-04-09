@@ -17,7 +17,7 @@ function divElementEnostavniTekst(sporocilo) {
   var jeVideo = sporocilo.indexOf("https://www.youtube.com/watch?v=") > -1;
   if (jeVideo) {
     sporocilo = sporocilo.replace(/\</g, '&lt;').replace(/\>/g, '&gt;').replace('&lt;img', '<img').replace('png\' /&gt;', 'png\' />').replace('&lt;iframe', '<br><iframe').replace('allowfullscreen;&gt', 'allowfullscreen>').replace('&gt;&lt;/iframe&gt', '</iframe>');
-    console.log(sporocilo);
+    //console.log(sporocilo);
     return $('<div style="font-weight: bold"></div>').html(sporocilo);
   } else {
     return $('<div style="font-weight: bold;"></div>').text(sporocilo);
@@ -154,10 +154,10 @@ $(document).ready(function() {
 function dodajSmeske(vhodnoBesedilo) {
   var reg = /https?:\/\/[^ ]*\.(?:gif|png|jpg|jpeg)/;
   var jeSlika = vhodnoBesedilo.match(reg);
-  console.log(vhodnoBesedilo.match(reg));
-  console.log(jeSlika);
+  //console.log(vhodnoBesedilo.match(reg));
+  //console.log(jeSlika);
   if (jeSlika) {
-    console.log(jeSlika);
+    //console.log(jeSlika);
     var zasebno = vhodnoBesedilo.indexOf('/zasebno') > -1;
     if (zasebno) {
       var konec = vhodnoBesedilo.length - 2;
@@ -193,8 +193,8 @@ function dodajVideo(vhodnoBesedilo) {
   //console.log(video);
   var regVideo = /^(?:https?:\/\/)?(?:www\.)?(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))((\w|-){11})(?:\S+)?$/;
   var jeVideo = vhodnoBesedilo.match(regVideo);
-  console.log(vhodnoBesedilo);
-  console.log(jeVideo);
+  //console.log(vhodnoBesedilo);
+  //console.log(jeVideo);
   if (jeVideo) {
     //console.log(jeVideo);
     vhodnoBesedilo += "<iframe src='https://www.youtube.com/embed/" + jeVideo[1] + "' style:'width: 200px; height: 150px; margin-left: 20px;' allowfullscreen></iframe>";
